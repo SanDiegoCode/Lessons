@@ -1,40 +1,36 @@
 package lesson4;
 
-import java.util.ArrayList;
-
-public class Mainly {
+public class Main {
 	
-	static int prime(int posspri)
-	{
-		for(int i=2; i<=posspri/2; i++)
-			if(posspri % i == 0)
+	static double cylinderVol(int rad, int height) {
+		return Math.PI * rad * rad * height;
+	}
+	//precondition: one>two
+	static int lcm(int one, int two) {
+		
+		for(int i=one; i<=one*two; i+=one)
+			if(i % one == 0 && i % two == 0)
 				return i;
-		return -1;
+		return one*two;
 	}
 	
-	static void primeFactorization(int big, ArrayList<Integer> facts)
-	{
-		int smol = prime(big);
-		if(smol==-1)
-			facts.add(big);
-		else
-		{
-			primeFactorization(smol, facts);
-			primeFactorization(big/smol, facts);
-		}
-			
+	static String properForm(int nume, int deno) {
+		int units = nume / deno;
+		int left = nume % deno;
+		return units+" + "+simplifyFrac(left,deno);
 	}
 	
-	static void printArray(ArrayList<Integer> facts)
-	{
-		for(int i : facts)
-			System.out.println(i);
+	static String simplifyFrac(int nume, int deno) {
+		if(deno%nume==0)
+			return 1+"/"+deno/nume;
+		for(int i=nume/2; i>=1; i--)
+			if(deno%i==0 && nume%i==0)
+				return nume/i+"/"+deno/i;
+		return nume+"/"+deno;
 	}
 	
-	static void main(String[] args)
-	//public static void main(String[] args)
-	{
-		ArrayList<Integer> factors = new ArrayList<Integer>();
-		primeFactorization(72, factors);
+	public static void main(String[] args) {
+		System.out.println(lcm(8,6));
+		System.out.print(properForm(42,24));
 	}
 }
